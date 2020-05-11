@@ -28,8 +28,9 @@ namespace SqlExtractor.Core.Tests
             // Assert
             Assert.True(localizedStrings.Count() > 0);
             Assert.Equal("About", localizedStrings.ElementAt(0).Text);
-            Assert.Equal("Home", localizedStrings.ElementAt(1).Text);
-            Assert.Equal("Hello, SQL Extractor", localizedStrings.ElementAt(2).Text);
+            Assert.Equal("Hello, SQL Extractor", localizedStrings.ElementAt(1).Text);
+            Assert.Equal("Home", localizedStrings.ElementAt(2).Text);
+            Assert.Equal("Hello, SQL Extractor", localizedStrings.ElementAt(3).Text);
         }
 
         private string GetTestFolderPath()

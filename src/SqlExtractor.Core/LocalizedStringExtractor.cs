@@ -10,7 +10,7 @@ namespace SqlExtractor.Core
     {
         private readonly IEnumerable<IProject> _projects;
 
-        private static readonly Regex _localizerRegularExpression = new Regex(@$"@{LocalizerIdentifierName.ViewLocalizer}\[""(.+)""\]", RegexOptions.Compiled);
+        private static readonly Regex _localizerRegularExpression = new Regex(@$"@{LocalizerIdentifierName.ViewLocalizer}\[""([\w\s!@,]+)""\]", RegexOptions.Compiled);
 
         public LocalizedStringExtractor(IEnumerable<IProject> projects)
         {
