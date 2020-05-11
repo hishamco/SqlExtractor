@@ -4,27 +4,26 @@ using SqlExtractor.Core;
 
 namespace SqlExtractor.Razor
 {
-    public class RazorProject : IProject
+    public class RazorProject : Project
     {
         public const string RazorFileExtension = ".cshtml";
 
-        public RazorProject(string path)
+        private IEnumerable<string> _files;
+
+        public RazorProject(string path) : base(path)
         {
-            Path = path;
             LoadFiles();
         }
 
-        public string Path { get; }
+        public override string Extension => ".csproj";
 
-        public string Extension => ".csproj";
-
-        public IEnumerable<string> Files { get; private set; }
+        public override IEnumerable<string> Files => _files;
 
         private void LoadFiles()
         {
             var projectDirectoryPath = new FileInfo(Path).Directory.FullName;
             var razorFilesPattern = "*" + RazorFileExtension;
-            Files = Directory.EnumerateFiles(projectDirectoryPath, razorFilesPattern, SearchOption.AllDirectories);
+            _files = Directory.EnumerateFiles(projectDirectoryPath, razorFilesPattern, SearchOption.AllDirectories);
         }
     }
 }

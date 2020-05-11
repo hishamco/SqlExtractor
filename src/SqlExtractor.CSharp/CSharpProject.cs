@@ -4,27 +4,26 @@ using SqlExtractor.Core;
 
 namespace SqlExtractor.CSharp
 {
-    public class CSharpProject : IProject
+    public class CSharpProject : Project
     {
         public const string CSharpFileExtension = ".cs";
 
-        public CSharpProject(string path)
+        private IEnumerable<string> _files;
+
+        public CSharpProject(string path) : base(path)
         {
-            Path = path;
             LoadFiles();
         }
 
-        public string Path { get; }
+        public override string Extension => ".csproj";
 
-        public string Extension => ".csproj";
-
-        public IEnumerable<string> Files { get; private set; }
+        public override IEnumerable<string> Files => _files;
 
         private void LoadFiles()
         {
             var projectDirectoryPath = new FileInfo(Path).Directory.FullName;
             var csFilesPattern = "*" + CSharpFileExtension;
-            Files = Directory.EnumerateFiles(projectDirectoryPath, csFilesPattern, SearchOption.AllDirectories);
+            _files = Directory.EnumerateFiles(projectDirectoryPath, csFilesPattern, SearchOption.AllDirectories);
         }
     }
 }
