@@ -11,7 +11,7 @@ namespace SqlExtractor.Core
         private readonly IEnumerable<IProject> _projects;
 
         private static readonly string _viewLocalizerIdentifier = "Localizer";
-        private static readonly Regex _localizerRegularExpression = new Regex(@$"@{_viewLocalizerIdentifier}\["".+""\]", RegexOptions.Compiled);
+        private static readonly Regex _localizerRegularExpression = new Regex(@$"@{_viewLocalizerIdentifier}\[""(.+)""\]", RegexOptions.Compiled);
 
         public LocalizedStringExtractor(IEnumerable<IProject> projects)
         {
@@ -29,8 +29,7 @@ namespace SqlExtractor.Core
 
                     foreach (Match match in _localizerRegularExpression.Matches(content))
                     {
-                        var value = match.Value.TrimStart("@Localizer[\"".ToCharArray()).TrimEnd("\"]".ToCharArray());
-                        localizedStrings.Add(new LocalizedString { Text = value });
+                        localizedStrings.Add(new LocalizedString { Text = match.Groups[1].Value });
                     }
                 }
             }
