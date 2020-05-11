@@ -13,4 +13,9 @@
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\SqlExtractor.Core\SqlExtractor.Core.csproj" />
+    <ProjectReference Include="..\..\src\SqlExtractor.Razor\SqlExtractor.Razor.csproj" />
+  </ItemGroup>
+
 </Project>
