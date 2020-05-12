@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SqlExtractor.Core
+namespace SqlExtractor.Core.Extraction
 {
     public interface ILocalizedStringExtractor
     {

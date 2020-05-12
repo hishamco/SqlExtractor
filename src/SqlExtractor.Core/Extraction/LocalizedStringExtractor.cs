@@ -4,7 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace SqlExtractor.Core
+namespace SqlExtractor.Core.Extraction
 {
     public class LocalizedStringExtractor : ILocalizedStringExtractor
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace SqlExtractor.Core.Tests
+namespace SqlExtractor.Core.Extraction.Tests
 {
     public class LocalizedStringExtractorTests
     {
