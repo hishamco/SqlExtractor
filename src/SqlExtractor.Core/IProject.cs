@@ -8,6 +8,6 @@ namespace SqlExtractor.Core
 
         string Extension { get; }
 
-        IEnumerable<string> Files { get; }
+        IEnumerable<IProjectFile> Files { get; }
     }
 }

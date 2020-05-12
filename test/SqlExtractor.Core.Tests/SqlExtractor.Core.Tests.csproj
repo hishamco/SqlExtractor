@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\SqlExtractor.Core\SqlExtractor.Core.csproj" />
-    <ProjectReference Include="..\..\src\SqlExtractor.Razor\SqlExtractor.Razor.csproj" />
+    <ProjectReference Include="..\..\src\SqlExtractor.CSharp\SqlExtractor.CSharp.csproj" />
   </ItemGroup>
 
 </Project>

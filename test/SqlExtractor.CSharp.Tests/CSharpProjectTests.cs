@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using SqlExtractor.CSharp.Views;
 using Xunit;
 
 namespace SqlExtractor.CSharp.Tests
@@ -31,10 +32,27 @@ namespace SqlExtractor.CSharp.Tests
             var project = new CSharpProject(projectPath);
 
             // Act
-            var projectFiles = project.Files;
+            var cSharpFiles = project.Files.OfType<CSharpFile>();
 
             // Assert
-            Assert.True(projectFiles.All(f => f.EndsWith(CSharpProject.CSharpFileExtension)));
+            Assert.NotEmpty(cSharpFiles);
+            Assert.True(cSharpFiles.All(f => f.Path.EndsWith(CSharpFile.CSharpFileExtension)));
+        }
+
+        [Fact]
+        public void AllRazorFilesMustEndWithCshtmlExtension()
+        {
+            // Arrange
+            var projectRootPath = GetProjectRootPath();
+            var projectPath = Path.Combine(projectRootPath, $"SqlExtractor.Razor.Tests.csproj");
+            var project = new CSharpProject(projectPath);
+
+            // Act
+            var razorFiles = project.Files.OfType<RazorFile>();
+
+            // Assert
+            Assert.NotEmpty(razorFiles);
+            Assert.True(razorFiles.All(f => f.Path.EndsWith(RazorFile.RazorFileExtension)));
         }
 
         private string GetProjectRootPath()

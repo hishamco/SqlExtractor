@@ -14,6 +14,6 @@ namespace SqlExtractor.Core
         public abstract string Extension { get; }
 
 
-        public virtual IEnumerable<string> Files { get; } = new List<string>();
+        public virtual IEnumerable<IProjectFile> Files { get; } = new List<IProjectFile>();
     }
 }

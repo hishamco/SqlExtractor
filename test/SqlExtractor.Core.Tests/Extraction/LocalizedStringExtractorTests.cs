@@ -1,4 +1,4 @@
-﻿using SqlExtractor.Razor;
+﻿using SqlExtractor.CSharp;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,12 +13,12 @@ namespace SqlExtractor.Core.Extraction.Tests
         public async Task ExtractLocalizedStrings()
         {
             // Arrange
-            var projectName = "SqlExtractor.Razor.Tests";
+            var projectName = "SqlExtractor.CSharp.Tests";
             var projectFolderPath = Path.Combine(GetTestFolderPath(), projectName);
             var projectPath = Path.Combine(projectFolderPath, $"{projectName}.csproj");
             var projects = new List<IProject>
             {
-                new RazorProject(projectPath)
+                new CSharpProject(projectPath)
             };
             var extractor = new LocalizedStringExtractor(projects);
 
