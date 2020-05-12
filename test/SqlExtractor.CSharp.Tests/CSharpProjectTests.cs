@@ -44,7 +44,7 @@ namespace SqlExtractor.CSharp.Tests
         {
             // Arrange
             var projectRootPath = GetProjectRootPath();
-            var projectPath = Path.Combine(projectRootPath, $"SqlExtractor.Razor.Tests.csproj");
+            var projectPath = Path.Combine(projectRootPath, $"SqlExtractor.CSharp.Tests.csproj");
             var project = new CSharpProject(projectPath);
 
             // Act
