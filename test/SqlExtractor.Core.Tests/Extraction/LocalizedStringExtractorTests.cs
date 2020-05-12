@@ -27,11 +27,9 @@ namespace SqlExtractor.Core.Extraction.Tests
 
             // Assert
             Assert.True(localizedStrings.Count() > 0);
-            Assert.Equal("About", localizedStrings.ElementAt(0).Text);
-            Assert.Equal("Hello, SQL Extractor", localizedStrings.ElementAt(1).Text);
-            Assert.Equal("Home", localizedStrings.ElementAt(2).Text);
-            Assert.Equal("Hello, SQL Extractor", localizedStrings.ElementAt(3).Text);
-            Assert.Equal("Hello, {0}", localizedStrings.ElementAt(4).Text);
+            Assert.Contains(localizedStrings, s => s.Text == "About");
+            Assert.Contains(localizedStrings, s => s.Text == "Hello, SQL Extractor");
+            Assert.Contains(localizedStrings, s => s.Text == "Hello, {0}");
             Assert.Contains(localizedStrings, s => s.Text == "Hello, AngularJS");
         }
 
