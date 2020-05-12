@@ -33,6 +33,26 @@ namespace SqlExtractor.Core.Extraction.Tests
             Assert.Contains(localizedStrings, s => s.Text == "Hello, AngularJS");
         }
 
+        [Fact]
+        public async Task ExtractShouldRemoveDuplicates()
+        {
+            // Arrange
+            var projectName = "SqlExtractor.CSharp.Tests";
+            var projectFolderPath = Path.Combine(GetTestFolderPath(), projectName);
+            var projectPath = Path.Combine(projectFolderPath, $"{projectName}.csproj");
+            var projects = new List<IProject>
+            {
+                new CSharpProject(projectPath)
+            };
+            var extractor = new LocalizedStringExtractor(projects);
+
+            // Act
+            var localizedStrings = await extractor.ExtractAsync();
+
+            // Assert
+            Assert.Single(localizedStrings, s => s.Text == "Hello, SQL Extractor");
+        }
+
         private string GetTestFolderPath()
         {
             var executionLocation = typeof(LocalizedStringExtractorTests).Assembly.Location;

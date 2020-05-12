@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -8,6 +9,8 @@ namespace SqlExtractor.Core.Extraction
 {
     public class LocalizedStringExtractor : ILocalizedStringExtractor
     {
+        private static readonly LocalizedStringComparer _localizedStringComparer = new LocalizedStringComparer();
+
         private readonly IEnumerable<IProject> _projects;
 
         public LocalizedStringExtractor(IEnumerable<IProject> projects)
@@ -35,7 +38,7 @@ namespace SqlExtractor.Core.Extraction
                 }
             }
 
-            return localizedStrings;
+            return localizedStrings.Distinct(_localizedStringComparer);
         }
     }
 }
