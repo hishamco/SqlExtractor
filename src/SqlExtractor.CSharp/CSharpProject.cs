@@ -26,7 +26,9 @@ namespace SqlExtractor.CSharp
                 .Select(f => new CSharpFile { Path = f});
             var razorFiles = Directory.EnumerateFiles(projectDirectoryPath, $"*{RazorFile.RazorFileExtension}", SearchOption.AllDirectories)
                 .Select(f => new RazorFile { Path = f });
-            _files = cSharpFiles.Union<IProjectFile>(razorFiles);
+            var htmlFiles = Directory.EnumerateFiles(projectDirectoryPath, $"*{HtmlFile.HtmlFileExtension}", SearchOption.AllDirectories)
+                .Select(f => new HtmlFile { Path = f });
+            _files = cSharpFiles.Union<IProjectFile>(razorFiles).Union(htmlFiles);
         }
     }
 }

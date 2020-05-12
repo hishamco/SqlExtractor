@@ -55,6 +55,22 @@ namespace SqlExtractor.CSharp.Tests
             Assert.True(razorFiles.All(f => f.Path.EndsWith(RazorFile.RazorFileExtension)));
         }
 
+        [Fact]
+        public void AllHtmlFilesMustEndWithHtmlExtension()
+        {
+            // Arrange
+            var projectRootPath = GetProjectRootPath();
+            var projectPath = Path.Combine(projectRootPath, $"SqlExtractor.CSharp.Tests.csproj");
+            var project = new CSharpProject(projectPath);
+
+            // Act
+            var htmlFiles = project.Files.OfType<HtmlFile>();
+
+            // Assert
+            Assert.NotEmpty(htmlFiles);
+            Assert.True(htmlFiles.All(f => f.Path.EndsWith(HtmlFile.HtmlFileExtension)));
+        }
+
         private string GetProjectRootPath()
         {
             var executionLocation = typeof(CSharpProjectTests).Assembly.Location;
