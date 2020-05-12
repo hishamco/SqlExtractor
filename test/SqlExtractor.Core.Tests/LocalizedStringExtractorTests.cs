@@ -31,6 +31,7 @@ namespace SqlExtractor.Core.Tests
             Assert.Equal("Hello, SQL Extractor", localizedStrings.ElementAt(1).Text);
             Assert.Equal("Home", localizedStrings.ElementAt(2).Text);
             Assert.Equal("Hello, SQL Extractor", localizedStrings.ElementAt(3).Text);
+            Assert.Equal("Hello, {0}", localizedStrings.ElementAt(4).Text);
         }
 
         private string GetTestFolderPath()
