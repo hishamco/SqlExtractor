@@ -16,7 +16,7 @@ namespace SqlExtractor.Core.Tests.Sql
             var sql = generator.Generate(localizedString);
 
             // Assert
-            Assert.Equal("INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Hello');", sql);
+            Assert.Equal("INSERT [dbo].[Localization_Resource] ([CultureId], [Key], [Value]) VALUES ('en-US', N'Hello', N'Hello');", sql);
         }
     }
 }
