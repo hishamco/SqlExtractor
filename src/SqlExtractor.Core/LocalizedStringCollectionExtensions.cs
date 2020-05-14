@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SqlExtractor.Core
 {
@@ -39,21 +40,6 @@ namespace SqlExtractor.Core
         }
 
         public static void AddRange(this LocalizedStringCollection collection, IEnumerable<LocalizedStringOccurence> values)
-        {
-            if (collection is null)
-            {
-                throw new ArgumentNullException(nameof(collection));
-            }
-
-            if (values is null)
-            {
-                throw new ArgumentNullException(nameof(values));
-            }
-
-            foreach (var value in values)
-            {
-                collection.Add(value);
-            }
-        }
+            => collection.AddRange(values.Select(v => new LocalizedString(v)));
     }
 }
