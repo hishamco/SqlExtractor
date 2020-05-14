@@ -14,8 +14,8 @@ namespace SqlExtractor.Core.Tests.Transformation
             var transformer = new LocalizedStringTransformer();
             var localizedStrings = new List<LocalizedString>
             {
-                new LocalizedString { Text = "Hello" },
-                new LocalizedString { Text = "Hello, {0}" }
+                new LocalizedString("Hello"),
+                new LocalizedString("Hello, {0}")
             };
 
             // Act

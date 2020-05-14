@@ -5,6 +5,6 @@ namespace SqlExtractor.Core.Extraction
 {
     public interface ILocalizedStringExtractor
     {
-        Task<IEnumerable<LocalizedString>> ExtractAsync();
+        Task<IEnumerable<LocalizedStringOccurence>> ExtractAsync();
     }
 }

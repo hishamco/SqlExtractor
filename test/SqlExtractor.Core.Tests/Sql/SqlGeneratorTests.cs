@@ -10,7 +10,7 @@ namespace SqlExtractor.Core.Tests.Sql
         {
             // Arrange
             var generator = new SqlGenerator();
-            var localizedString = new LocalizedString { Text = "Hello" };
+            var localizedString = new LocalizedString("Hello");
 
             // Act
             var sql = generator.Generate(localizedString);

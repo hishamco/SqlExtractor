@@ -1,8 +1,8 @@
-﻿using SqlExtractor.CSharp;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using SqlExtractor.CSharp;
 using Xunit;
 
 namespace SqlExtractor.Core.Extraction.Tests
@@ -34,26 +34,6 @@ namespace SqlExtractor.Core.Extraction.Tests
         }
 
         [Fact]
-        public async Task ExtractShouldRemoveDuplicates()
-        {
-            // Arrange
-            var projectName = "SqlExtractor.CSharp.Tests";
-            var projectFolderPath = Path.Combine(GetTestFolderPath(), projectName);
-            var projectPath = Path.Combine(projectFolderPath, $"{projectName}.csproj");
-            var projects = new List<IProject>
-            {
-                new CSharpProject(projectPath)
-            };
-            var extractor = new LocalizedStringExtractor(projects);
-
-            // Act
-            var localizedStrings = await extractor.ExtractAsync();
-
-            // Assert
-            Assert.Single(localizedStrings, s => s.Text == "Hello, SQL Extractor");
-        }
-
-        [Fact]
         public async Task GetExtractedLocalizedStringsLocationMetadata()
         {
             // Arrange
@@ -70,7 +50,7 @@ namespace SqlExtractor.Core.Extraction.Tests
             var localizedStrings = await extractor.ExtractAsync();
 
             // Assert
-            var location = localizedStrings.Single(s => s.Text == "Home").Locations.First();
+            var location = localizedStrings.Single(s => s.Text == "Home").Location;
             Assert.Equal("Index.cshtml", Path.GetFileName(location.File.Path));
             Assert.Equal(1, location.Line);
             Assert.Equal(13, location.Column);

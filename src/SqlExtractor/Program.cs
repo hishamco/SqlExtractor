@@ -29,26 +29,23 @@ namespace SqlExtractor
             var destinationPath = args[1];
             if (Directory.Exists(sourcePath))
             {
-                var extractedLocalizedStrings = new List<LocalizedString>();
+                var localizedStringCollection = new LocalizedStringCollection();
                 var projectPaths = Directory.EnumerateFiles(sourcePath, $"*.csproj", SearchOption.AllDirectories);
                 foreach (var projectPath in projectPaths)
                 {
-                    var projects = new List<IProject>{
-                        new CSharpProject(projectPath)
-                    };
+                    var projects = new List<IProject> { new CSharpProject(projectPath) };
                     var localizedStringExtractor = new LocalizedStringExtractor(projects);
-                    var localizedStrings = localizedStringExtractor.ExtractAsync().GetAwaiter().GetResult();
-                    extractedLocalizedStrings.AddRange(localizedStrings);
+                    var localizedStringOccurences = localizedStringExtractor.ExtractAsync().GetAwaiter().GetResult();
+                    localizedStringCollection.AddRange(localizedStringOccurences);
 
-                    PrintProjectStats(projectPath, localizedStrings.Count());
+                    PrintProjectStats(projectPath, localizedStringOccurences.Count());
                 }
 
-                if (extractedLocalizedStrings.Count() > 0)
+                if (localizedStringCollection.Count() > 0)
                 {
                     var localizedStringTransformer = new LocalizedStringTransformer();
                     var sqlGenerator = new SqlGenerator();
-                    var transformedStrings = localizedStringTransformer.Transform(extractedLocalizedStrings
-                        .Distinct(_localizedStringComparer), sqlGenerator.Generate);   
+                    var transformedStrings = localizedStringTransformer.Transform(localizedStringCollection, sqlGenerator.Generate);
                     var sqlScriptName = string.Concat(DefaultCultureName, SqlWriter.SqlScriptFileExtension);
                     var sqlScriptPath = Path.Combine(destinationPath, sqlScriptName);
                     var sqlWriter = new SqlWriter(sqlScriptPath);

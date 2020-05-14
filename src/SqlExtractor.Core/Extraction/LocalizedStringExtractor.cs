@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -18,9 +17,9 @@ namespace SqlExtractor.Core.Extraction
             _projects = projects ?? throw new ArgumentNullException(nameof(projects));
         }
 
-        public async Task<IEnumerable<LocalizedString>> ExtractAsync()
+        public async Task<IEnumerable<LocalizedStringOccurence>> ExtractAsync()
         {
-            var localizedStrings = new List<LocalizedString>();
+            var localizedStringOccurences = new List<LocalizedStringOccurence>();
             foreach (var project in _projects)
             {
                 foreach (var file in project.Files)
@@ -36,25 +35,25 @@ namespace SqlExtractor.Core.Extraction
                         var line = fileLines[i];
                         foreach (Match match in file.LocalizerPattern.Matches(line))
                         {
-                            var localizedString = new LocalizedString
+                            var value = match.Groups[1].Value;
+                            var occurence = new LocalizedStringOccurence
                             {
-                                Text = match.Groups[1].Value
+                                Location = new LocalizedStringLocation
+                                {
+                                    File = file,
+                                    Line = i + 1,
+                                    Column = line.IndexOf(value) + 1
+                                },
+                                Text = value
                             };
-                            var location = new LocalizedStringLocation
-                            {
-                                File = file,
-                                Line = i + 1,
-                                Column = line.IndexOf(localizedString.Text) + 1
-                            };
-                            localizedString.Locations.Add(location);
 
-                            localizedStrings.Add(localizedString);
+                            localizedStringOccurences.Add(occurence);
                         }
                     }
                 }
             }
 
-            return localizedStrings.Distinct(_localizedStringComparer);
+            return localizedStringOccurences;
         }
     }
 }
