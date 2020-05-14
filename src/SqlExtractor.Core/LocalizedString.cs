@@ -16,7 +16,7 @@ namespace SqlExtractor.Core
             Locations = new List<LocalizedStringLocation>();
         }
 
-        internal LocalizedString(LocalizedStringOccurence localizedStringOccurence) :this(localizedStringOccurence.Text)
+        public LocalizedString(LocalizedStringOccurence localizedStringOccurence) :this(localizedStringOccurence.Text)
         {
             if (localizedStringOccurence is null)
             {
