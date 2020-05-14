@@ -8,8 +8,6 @@ namespace SqlExtractor.Core.Extraction
 {
     public class LocalizedStringExtractor : ILocalizedStringExtractor
     {
-        private static readonly LocalizedStringComparer _localizedStringComparer = new LocalizedStringComparer();
-
         private readonly IEnumerable<IProject> _projects;
 
         public LocalizedStringExtractor(IEnumerable<IProject> projects)
