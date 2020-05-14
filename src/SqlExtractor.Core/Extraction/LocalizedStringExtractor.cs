@@ -30,10 +30,26 @@ namespace SqlExtractor.Core.Extraction
                         continue;
                     }
 
-                    var content = await File.ReadAllTextAsync(file.Path);
-                    foreach (Match match in file.LocalizerPattern.Matches(content))
+                    var fileLines = await File.ReadAllLinesAsync(file.Path);
+                    for (int i = 0; i < fileLines.Length; i++)
                     {
-                        localizedStrings.Add(new LocalizedString { Text = match.Groups[1].Value });
+                        var line = fileLines[i];
+                        foreach (Match match in file.LocalizerPattern.Matches(line))
+                        {
+                            var localizedString = new LocalizedString
+                            {
+                                Text = match.Groups[1].Value
+                            };
+                            var location = new LocalizedStringLocation
+                            {
+                                File = file,
+                                Line = i + 1,
+                                Column = line.IndexOf(localizedString.Text) + 1
+                            };
+                            localizedString.Locations.Add(location);
+
+                            localizedStrings.Add(localizedString);
+                        }
                     }
                 }
             }

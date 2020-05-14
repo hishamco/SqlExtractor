@@ -53,6 +53,30 @@ namespace SqlExtractor.Core.Extraction.Tests
             Assert.Single(localizedStrings, s => s.Text == "Hello, SQL Extractor");
         }
 
+        [Fact]
+        public async Task GetExtractedLocalizedStringsLocationMetadata()
+        {
+            // Arrange
+            var projectName = "SqlExtractor.CSharp.Tests";
+            var projectFolderPath = Path.Combine(GetTestFolderPath(), projectName);
+            var projectPath = Path.Combine(projectFolderPath, $"{projectName}.csproj");
+            var projects = new List<IProject>
+            {
+                new CSharpProject(projectPath)
+            };
+            var extractor = new LocalizedStringExtractor(projects);
+
+            // Act
+            var localizedStrings = await extractor.ExtractAsync();
+
+            // Assert
+            var location = localizedStrings.Single(s => s.Text == "Home").Locations.First();
+            Assert.Equal("Index.cshtml", Path.GetFileName(location.File.Path));
+            Assert.Equal(1, location.Line);
+            Assert.Equal(13, location.Column);
+        }
+
+
         private string GetTestFolderPath()
         {
             var executionLocation = typeof(LocalizedStringExtractorTests).Assembly.Location;
